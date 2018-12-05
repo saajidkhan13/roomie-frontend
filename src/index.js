@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showApartment(dataStore) {
       return dataStore.map((apt) => {
         return `<center><div id="apt-stuff">
-        <h1>${apt.name}</h1>
+        <h1>LALALALA${apt.name}</h1>
         <img src='https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=673&q=80>'<br>
         <br><label>Address: </label>
         <span>${apt.address}</span><br><br></div></center>`
