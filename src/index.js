@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const showDiv = document.getElementById("show-div")
   const aptStuff = document.getElementById('apt-stuff')
   const roommates = document.getElementById('roommates-div')
-  console.log(roommates);
 
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
       apartmentDiv.innerHTML = showApartment(dataStore)
       // roommates.innerHTML = x.join('')
       users = dataStore[0].users
-      console.log(users);
       roommates.innerHTML = showRoommates(users).join(' ')
 
     });
@@ -50,8 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // debugger
       let billObjects = dataStore[0].bills
       let userObjects = dataStore[0].users
-      console.log(userObjects);
-      showDiv.innerHTML = ""
+      // showDiv.innerHTML = ""
       if(event.target.id === 'landlord-button') {
         let landlordInfo =
         `<p>Our landlord is ${dataStore[0].landlord_name}</p>
@@ -72,16 +69,27 @@ document.addEventListener('DOMContentLoaded', () => {
         showDiv.innerHTML = billTags
       }
       else if(event.target.id === 'user-name'){
-        console.log('yerrr');
         let clickedUserId = parseInt(event.target.dataset.id)
-        console.log(clickedUserId);
         let selectedUser = userObjects.find((user) => { return user.id === clickedUserId})
-        console.log(selectedUser);
         showDiv.innerHTML = `<h1>${selectedUser.name}</h1>
         <p>${selectedUser.associates}</p>
         <img src=${selectedUser.image}>`
-        
     }//end of elseif for username
+    else if(event.target.id === 'chores-button') {
+      let choreInfo = `<p>${dataStore[0].chores}</p><br>
+      <form id='new-chore-form'>
+        New Chore:<br>
+        <input type="text" name="chore"><br>
+        <button id='new-chore' class='uk-button-primary'>Add Chore </button>
+      </form>`
+      showDiv.innerHTML = choreInfo
+      let newChoreForm = document.getElementById('new-chore-form')
+      newChoreForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        console.log('lol');
+      })
+    }
+
   })//end of click event listener
 
 
