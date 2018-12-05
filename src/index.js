@@ -41,22 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showRoommates(users) {
       return users.map((user) => {
-        return `<center><span>${user.name}</span><br><br><center>`
+        return `<center><span data-id=${user.id} id='user-name'>${user.name}</span><br><br><center>`
       })
     }
-    //
-    // function showBills(billObjects) {
-    //   return billObjects.map((bill) => {
-    //     return
-    //     `<p>${bill.name}</p>
-    //     <p>${bill.amount}</p>`
-    //   })
-    // }
+
 
     document.addEventListener('click', (event) => {
       // debugger
       let billObjects = dataStore[0].bills
-      console.log(billObjects);
+      let userObjects = dataStore[0].users
+      console.log(userObjects);
       showDiv.innerHTML = ""
       if(event.target.id === 'landlord-button') {
         let landlordInfo =
@@ -75,10 +69,20 @@ document.addEventListener('DOMContentLoaded', () => {
           <p>${bill.amount}</p>
           <img src=${bill.image}>`
         }).join('')
-
         showDiv.innerHTML = billTags
       }
-    })//end of click event listener
+      else if(event.target.id === 'user-name'){
+        console.log('yerrr');
+        let clickedUserId = parseInt(event.target.dataset.id)
+        console.log(clickedUserId);
+        let selectedUser = userObjects.find((user) => { return user.id === clickedUserId})
+        console.log(selectedUser);
+        showDiv.innerHTML = `<h1>${selectedUser.name}</h1>
+        <p>${selectedUser.associates}</p>
+        <img src=${selectedUser.image}>`
+        
+    }//end of elseif for username
+  })//end of click event listener
 
 
 
