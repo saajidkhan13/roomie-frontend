@@ -1,15 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-
   // DOM Elements
   const apartmentDiv = document.getElementById("apartment-div")
-    // console.log(apartmentDiv);
   const showDiv = document.getElementById("show-div")
-console.log(showDiv);
 
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
-
   let dataStore = []
 
   // Fetches and Event Listeners
@@ -22,7 +17,6 @@ console.log(showDiv);
       apartmentDiv.innerHTML = showApartment(dataStore)
     });
 
-    // console.log(dataStore);
 
     // HELPERS
     function showApartment(dataStore) {
@@ -36,7 +30,6 @@ console.log(showDiv);
     }
 
 
-
     document.addEventListener('click', (event) => {
       showDiv.innerHTML = ""
       if(event.target.id === 'landlord-button') {
@@ -47,8 +40,9 @@ console.log(showDiv);
       }//if event for landlord button
       else if(event.target.id === 'necessities-button'){
         console.log('yerrrr');
-        let necArray = Array.from(dataStore[0].necessities)
-        let necJoin = necArray.split("")
+        let necArray = dataStore[0].necessities
+        debugger
+        let necJoin = necArray.join(", ")
         console.log(necJoin);
         // necArray.forEach((nec) => {
         //   showDiv.innerHTML = `We need ${nec}`
