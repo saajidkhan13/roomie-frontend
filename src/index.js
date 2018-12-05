@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // roommates.innerHTML = x.join('')
       users = dataStore[0].users
       console.log(users);
-      roommates.innerHTML = showRoommates(users).join('')
+      roommates.innerHTML = showRoommates(users).join(' ')
 
     });
 
@@ -31,27 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // HELPERS
     function showApartment(dataStore) {
       return dataStore.map((apt) => {
-        return `<div id="apt-stuff"><center><h1>${apt.name}</h1>
-        <label>Address: </label>
-        <span>${apt.address}</span><br><br></div>
-        <div id='roommates'></div>`
+        return `<center><div id="apt-stuff">
+        <h1>${apt.name}</h1>
+        <img src='https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=673&q=80>'<br>
+        <br><label>Address: </label>
+        <span>${apt.address}</span><br><br></div></center>`
       }).join('')
     }//end of showApartment
 
     function showRoommates(users) {
       return users.map((user) => {
-        return `<p>${user.name}</p>`
+        return `<center><span>${user.name}</span><br><br><center>`
       })
     }
-
-
-
+    //
+    // function showBills(billObjects) {
+    //   return billObjects.map((bill) => {
+    //     return
+    //     `<p>${bill.name}</p>
+    //     <p>${bill.amount}</p>`
+    //   })
+    // }
 
     document.addEventListener('click', (event) => {
       // debugger
+      let billObjects = dataStore[0].bills
+      console.log(billObjects);
       showDiv.innerHTML = ""
       if(event.target.id === 'landlord-button') {
-        debugger
         let landlordInfo =
         `<p>Our landlord is ${dataStore[0].landlord_name}</p>
         <p> Phone Number: ${dataStore[0].landlord_contact}</p>`
@@ -61,7 +68,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let necInfo =
         `<p>We need to buy ${dataStore[0].necessities}</p>`
         showDiv.innerHTML = necInfo
-      }//end of else if
+      }//end of else
+      else if(event.target.id === 'bills-button'){
+        let billTags = billObjects.map((bill) => {
+          return `<p>${bill.name}</p>
+          <p>${bill.amount}</p>
+          <img src=${bill.image}>`
+        }).join('')
+
+        showDiv.innerHTML = billTags
+      }
     })//end of click event listener
 
 
