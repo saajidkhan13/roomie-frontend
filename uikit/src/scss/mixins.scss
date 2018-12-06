@@ -26,6 +26,15 @@
 
 }
 @mixin hook-align-misc(){}
+@mixin hook-alert(){}
+@mixin hook-alert-close(){}
+@mixin hook-alert-close-hover(){}
+@mixin hook-alert-primary(){}
+@mixin hook-alert-success(){}
+@mixin hook-alert-warning(){}
+@mixin hook-alert-danger(){}
+@mixin hook-alert-misc(){}
+@mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -45,15 +54,7 @@
     }
 
 }
-@mixin hook-alert(){}
-@mixin hook-alert-close(){}
-@mixin hook-alert-close-hover(){}
-@mixin hook-alert-primary(){}
-@mixin hook-alert-success(){}
-@mixin hook-alert-warning(){}
-@mixin hook-alert-danger(){}
-@mixin hook-alert-misc(){}
-@mixin hook-animation-misc(){}
+@mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
 @mixin hook-badge-misc(){}
@@ -74,7 +75,6 @@
     }
 
 }
-@mixin hook-background-misc(){}
 @mixin hook-breadcrumb(){}
 @mixin hook-breadcrumb-item(){}
 @mixin hook-breadcrumb-item-hover(){}
@@ -145,6 +145,17 @@
     .uk-column-divider { column-rule-color: $inverse-column-divider-rule-color; }
 
 }
+@mixin hook-comment(){}
+@mixin hook-comment-body(){}
+@mixin hook-comment-header(){}
+@mixin hook-comment-title(){}
+@mixin hook-comment-meta(){}
+@mixin hook-comment-avatar(){}
+@mixin hook-comment-list-adjacent(){}
+@mixin hook-comment-list-sub(){}
+@mixin hook-comment-list-sub-adjacent(){}
+@mixin hook-comment-primary(){}
+@mixin hook-comment-misc(){}
 @mixin hook-container-misc(){}
 @mixin hook-countdown(){}
 @mixin hook-countdown-item(){}
@@ -176,57 +187,11 @@
     }
 
 }
-@mixin hook-comment(){}
-@mixin hook-comment-body(){}
-@mixin hook-comment-header(){}
-@mixin hook-comment-title(){}
-@mixin hook-comment-meta(){}
-@mixin hook-comment-avatar(){}
-@mixin hook-comment-list-adjacent(){}
-@mixin hook-comment-list-sub(){}
-@mixin hook-comment-list-sub-adjacent(){}
-@mixin hook-comment-primary(){}
-@mixin hook-comment-misc(){}
 @mixin hook-cover-misc(){}
 @mixin hook-description-list-term(){}
 @mixin hook-description-list-description(){}
 @mixin hook-description-list-divider-term(){}
 @mixin hook-description-list-misc(){}
-@mixin hook-dotnav(){}
-@mixin hook-dotnav-item(){}
-@mixin hook-dotnav-item-hover(){}
-@mixin hook-dotnav-item-onclick(){}
-@mixin hook-dotnav-item-active(){}
-@mixin hook-dotnav-misc(){}
-@mixin hook-inverse-dotnav-item(){}
-@mixin hook-inverse-dotnav-item-hover(){}
-@mixin hook-inverse-dotnav-item-onclick(){}
-@mixin hook-inverse-dotnav-item-active(){}
-@mixin hook-inverse-component-dotnav(){
-
-    .uk-dotnav > * > * {
-        background-color: $inverse-dotnav-item-background;
-        @if(mixin-exists(hook-inverse-dotnav-item)) {@include hook-inverse-dotnav-item();}
-    }
-
-    .uk-dotnav > * > :hover,
-    .uk-dotnav > * > :focus {
-        background-color: $inverse-dotnav-item-hover-background;
-        @if(mixin-exists(hook-inverse-dotnav-item-hover)) {@include hook-inverse-dotnav-item-hover();}
-    }
-
-    .uk-dotnav > * > :active {
-        background-color: $inverse-dotnav-item-onclick-background;
-        @if(mixin-exists(hook-inverse-dotnav-item-onclick)) {@include hook-inverse-dotnav-item-onclick();}
-    }
-
-    .uk-dotnav > .uk-active > * {
-        background-color: $inverse-dotnav-item-active-background;
-        @if(mixin-exists(hook-inverse-dotnav-item-active)) {@include hook-inverse-dotnav-item-active();}
-    }
-
-}
-@mixin hook-drop-misc(){}
 @mixin svg-fill($src, $color-default, $color-new, $property: background-image){
 
     $escape-color-default:  escape($color-default) !default;
@@ -272,6 +237,41 @@
     }
 
 }
+@mixin hook-dotnav(){}
+@mixin hook-dotnav-item(){}
+@mixin hook-dotnav-item-hover(){}
+@mixin hook-dotnav-item-onclick(){}
+@mixin hook-dotnav-item-active(){}
+@mixin hook-dotnav-misc(){}
+@mixin hook-inverse-dotnav-item(){}
+@mixin hook-inverse-dotnav-item-hover(){}
+@mixin hook-inverse-dotnav-item-onclick(){}
+@mixin hook-inverse-dotnav-item-active(){}
+@mixin hook-inverse-component-dotnav(){
+
+    .uk-dotnav > * > * {
+        background-color: $inverse-dotnav-item-background;
+        @if(mixin-exists(hook-inverse-dotnav-item)) {@include hook-inverse-dotnav-item();}
+    }
+
+    .uk-dotnav > * > :hover,
+    .uk-dotnav > * > :focus {
+        background-color: $inverse-dotnav-item-hover-background;
+        @if(mixin-exists(hook-inverse-dotnav-item-hover)) {@include hook-inverse-dotnav-item-hover();}
+    }
+
+    .uk-dotnav > * > :active {
+        background-color: $inverse-dotnav-item-onclick-background;
+        @if(mixin-exists(hook-inverse-dotnav-item-onclick)) {@include hook-inverse-dotnav-item-onclick();}
+    }
+
+    .uk-dotnav > .uk-active > * {
+        background-color: $inverse-dotnav-item-active-background;
+        @if(mixin-exists(hook-inverse-dotnav-item-active)) {@include hook-inverse-dotnav-item-active();}
+    }
+
+}
+@mixin hook-drop-misc(){}
 @mixin hook-dropdown(){}
 @mixin hook-dropdown-nav(){}
 @mixin hook-dropdown-nav-item(){}
@@ -408,16 +408,6 @@
     .uk-iconnav > .uk-active > a {
         color: $inverse-iconnav-item-active-color;
         @if(mixin-exists(hook-inverse-iconnav-item-active)) {@include hook-inverse-iconnav-item-active();}
-    }
-
-}
-@mixin hook-leader(){}
-@mixin hook-leader-misc(){}
-@mixin hook-inverse-leader(){}
-@mixin hook-inverse-component-leader(){
-
-    .uk-leader-fill {
-        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
     }
 
 }
@@ -1179,6 +1169,22 @@
     @include hook-inverse-component-column();
     @include hook-inverse-component-utility();
 }
+@mixin hook-label(){}
+@mixin hook-label-success(){}
+@mixin hook-label-warning(){}
+@mixin hook-label-danger(){}
+@mixin hook-label-misc(){}
+@mixin hook-inverse-label(){}
+@mixin hook-leader(){}
+@mixin hook-leader-misc(){}
+@mixin hook-inverse-leader(){}
+@mixin hook-inverse-component-leader(){
+
+    .uk-leader-fill {
+        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
+    }
+
+}
 @mixin hook-lightbox(){}
 @mixin hook-lightbox-item(){}
 @mixin hook-lightbox-toolbar(){}
@@ -1199,12 +1205,6 @@
 @mixin hook-inverse-link-muted-hover(){}
 @mixin hook-inverse-link-text-hover(){}
 @mixin hook-inverse-link-heading-hover(){}
-@mixin hook-label(){}
-@mixin hook-label-success(){}
-@mixin hook-label-warning(){}
-@mixin hook-label-danger(){}
-@mixin hook-label-misc(){}
-@mixin hook-inverse-label(){}
 @mixin hook-list-divider(){}
 @mixin hook-list-striped(){}
 @mixin hook-list-bullet(){}
@@ -1241,19 +1241,16 @@
 @mixin hook-notification-message-warning(){}
 @mixin hook-notification-message-danger(){}
 @mixin hook-notification-misc(){}
+@mixin hook-offcanvas-bar(){}
+@mixin hook-offcanvas-close(){}
+@mixin hook-offcanvas-overlay(){}
+@mixin hook-offcanvas-misc(){}
 @mixin hook-overlay(){}
 @mixin hook-overlay-icon(){}
 @mixin hook-overlay-default(){}
 @mixin hook-overlay-primary(){}
 @mixin hook-overlay-misc(){}
-@mixin hook-placeholder(){}
-@mixin hook-placeholder-misc(){}
-@mixin hook-offcanvas-bar(){}
-@mixin hook-offcanvas-close(){}
-@mixin hook-offcanvas-overlay(){}
-@mixin hook-offcanvas-misc(){}
-@mixin hook-position-misc(){}
-@mixin hook-print(){}
+@mixin hook-padding-misc(){}
 @mixin hook-pagination(){}
 @mixin hook-pagination-item(){}
 @mixin hook-pagination-item-hover(){}
@@ -1264,7 +1261,10 @@
 @mixin hook-inverse-pagination-item-hover(){}
 @mixin hook-inverse-pagination-item-active(){}
 @mixin hook-inverse-pagination-item-disabled(){}
-@mixin hook-padding-misc(){}
+@mixin hook-placeholder(){}
+@mixin hook-placeholder-misc(){}
+@mixin hook-position-misc(){}
+@mixin hook-print(){}
 @mixin hook-progress(){}
 @mixin hook-progress-bar(){}
 @mixin hook-progress-misc(){}
@@ -1295,9 +1295,9 @@
 @mixin hook-sortable-placeholder(){}
 @mixin hook-sortable-empty(){}
 @mixin hook-sortable-misc(){}
-@mixin hook-sticky-misc(){}
 @mixin hook-spinner(){}
 @mixin hook-spinner-misc(){}
+@mixin hook-sticky-misc(){}
 @mixin hook-svg-misc(){}
 @mixin hook-switcher-misc(){}
 @mixin hook-tab(){}

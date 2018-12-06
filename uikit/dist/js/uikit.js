@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-dev.101b423f2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.25 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5165,7 +5165,7 @@
 
                     this.elements.forEach(function (el) {
                         var height$$1 = toFloat(css(el, 'minHeight'));
-                        if (height$$1 && (this$1.forceHeight || Math.round(height$$1 + boxModelAdjust('height', el, 'content-box')) >= el.offsetHeight)) {
+                        if (height$$1 && (this$1.forceHeight || Math.round(height$$1) >= height(el))) {
                             css(el, 'height', height$$1);
                         }
                     });
@@ -8202,7 +8202,7 @@
 
     }
 
-    UIkit.version = '3.0.0-dev.101b423f2';
+    UIkit.version = '3.0.0-rc.25';
 
     core(UIkit);
 
@@ -10130,22 +10130,6 @@
 
         install: install$3,
 
-        computed: {
-
-            marginProp: function(ref) {
-                var pos = ref.pos;
-
-                return ("margin" + (startsWith(pos, 'top') ? 'Top' : 'Bottom'));
-            },
-
-            startProps: function() {
-                var obj;
-
-                return ( obj = {opacity: 0}, obj[this.marginProp] = -this.$el.offsetHeight, obj );
-            }
-
-        },
-
         created: function() {
 
             if (!containers[this.pos]) {
@@ -10162,13 +10146,12 @@
 
         connected: function() {
             var this$1 = this;
-            var obj;
 
 
-            var margin = toFloat(css(this.$el, this.marginProp));
+            var marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
-                css(this.$el, this.startProps),
-                ( obj = {opacity: 1}, obj[this.marginProp] = margin, obj )
+                css(this.$el, {opacity: 0, marginTop: -this.$el.offsetHeight, marginBottom: 0}),
+                {opacity: 1, marginTop: 0, marginBottom: marginBottom}
             ).then(function () {
                 if (this$1.timeout) {
                     this$1.timer = setTimeout(this$1.close, this$1.timeout);
@@ -10220,7 +10203,11 @@
                 if (immediate) {
                     removeFn();
                 } else {
-                    Transition.start(this.$el, this.startProps).then(removeFn);
+                    Transition.start(this.$el, {
+                        opacity: 0,
+                        marginTop: -this.$el.offsetHeight,
+                        marginBottom: 0
+                    }).then(removeFn);
                 }
             }
 

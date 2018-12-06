@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showApartment(dataStore) {
       return dataStore.map((apt) => {
         return `<center><div id="apt-stuff">
-        <h1>LALALALA${apt.name}</h1>
+        <h1>${apt.name}</h1>
         <img src='https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=673&q=80>'<br>
         <br><label>Address: </label>
         <span>${apt.address}</span><br><br></div></center>`
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showRoommates(users) {
       return users.map((user) => {
-        return `<center><span data-id=${user.id} id='user-name'>${user.name}</span><br><br><center>`
+        return `<center><p uk-margin><button class="uk-button uk-button-text" data-id=${user.id} id='user-name'>${user.name}</button></p><br><br><center>`
       })
     }
 
@@ -62,9 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }//end of else
       else if(event.target.id === 'bills-button'){
         let billTags = billObjects.map((bill) => {
-          return `<p>${bill.name}</p>
+          return `<div><span uk-icon="icon: check"></span><p>${bill.name}</p>
           <p>${bill.amount}</p>
-          <img src=${bill.image}>`
+          <img src=${bill.image}>
+          <div>`
         }).join('')
         showDiv.innerHTML = billTags
       }
@@ -76,12 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src=${selectedUser.image}>`
     }//end of elseif for username
     else if(event.target.id === 'chores-button') {
-      let choreInfo = `<p>${dataStore[0].chores}</p><br>
+      let choreInfo = `<div id='all-chores'<p>${dataStore[0].chores}</p></div><br>
+      <div id='new-form-div>'
       <form id='new-chore-form'>
         New Chore:<br>
         <input type="text" name="chore"><br>
         <button id='new-chore' class='uk-button-primary'>Add Chore </button>
-      </form>`
+      </form>
+      </div>`
       showDiv.innerHTML = choreInfo
       let newChoreForm = document.getElementById('new-chore-form')
       newChoreForm.addEventListener('submit', (e) => {

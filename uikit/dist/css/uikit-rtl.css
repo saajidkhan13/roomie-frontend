@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-dev.101b423f2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.25 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2210,8 +2210,8 @@ select.uk-form-width-xsmall {
  *    unaffected by the padding on different breakpoints. It's important for the size modifiers.
  */
 .uk-container {
-  /* 1 */
   box-sizing: content-box;
+  /* 1 */
   max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
@@ -2269,89 +2269,6 @@ select.uk-form-width-xsmall {
 }
 .uk-container-expand {
   max-width: none;
-}
-/* Expand modifier
- ========================================================================== */
-/*
- * Expand one side only
- */
-.uk-container-expand-right {
-  margin-right: 0;
-}
-.uk-container-expand-left {
-  margin-left: 0;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-container-expand-right.uk-container-xsmall,
-  .uk-container-expand-left.uk-container-xsmall {
-    max-width: calc(50% + (750px / 2) - 30px);
-  }
-  .uk-container-expand-right.uk-container-small,
-  .uk-container-expand-left.uk-container-small {
-    max-width: calc(50% + (900px / 2) - 30px);
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-container-expand-right,
-  .uk-container-expand-left {
-    max-width: calc(50% + (1200px / 2) - 40px);
-  }
-  .uk-container-expand-right.uk-container-xsmall,
-  .uk-container-expand-left.uk-container-xsmall {
-    max-width: calc(50% + (750px / 2) - 40px);
-  }
-  .uk-container-expand-right.uk-container-small,
-  .uk-container-expand-left.uk-container-small {
-    max-width: calc(50% + (900px / 2) - 40px);
-  }
-  .uk-container-expand-right.uk-container-large,
-  .uk-container-expand-left.uk-container-large {
-    max-width: calc(50% + (1600px / 2) - 40px);
-  }
-}
-/* Item
- ========================================================================== */
-/*
- * Utility classes to reset container padding on the left or right side
- * Note: It has to be negative margin on the item, because it's specific to the item.
- */
-.uk-container-item-padding-remove-right,
-.uk-container-item-padding-remove-left {
-  width: calc(100% + 15px);
-}
-.uk-container-item-padding-remove-right {
-  margin-right: -15px;
-}
-.uk-container-item-padding-remove-left {
-  margin-left: -15px;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-container-item-padding-remove-right,
-  .uk-container-item-padding-remove-left {
-    width: calc(100% + 30px);
-  }
-  .uk-container-item-padding-remove-right {
-    margin-right: -30px;
-  }
-  .uk-container-item-padding-remove-left {
-    margin-left: -30px;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-container-item-padding-remove-right,
-  .uk-container-item-padding-remove-left {
-    width: calc(100% + 40px);
-  }
-  .uk-container-item-padding-remove-right {
-    margin-right: -40px;
-  }
-  .uk-container-item-padding-remove-left {
-    margin-left: -40px;
-  }
 }
 /* ========================================================================
    Component: Grid
@@ -5836,15 +5753,13 @@ ul.uk-nav-sub {
 ========================================================================== */
 .uk-notification-message {
   position: relative;
+  margin-bottom: 10px;
   padding: 15px;
   background: #f8f8f8;
   color: #666;
   font-size: 1.25rem;
   line-height: 1.4;
   cursor: pointer;
-}
-* + .uk-notification-message {
-  margin-top: 10px;
 }
 /* Close
  * Adopts `uk-close`
