@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function showApartment(dataStore) {
       return dataStore.map((apt) => {
         return `<center><div data-id=${apt.id} id="apt-stuff">
-        <h3 id="apt-name">${apt.name}</h3>
-        <br><label>Address: </label>
-        <span>${apt.address}</span><br><br></div></center>`
+        <h3 class="header-style" id="apt-name">${apt.name}</h3>
+        <br><label class="header-style">Address: </label>
+        <span class="header-style">${apt.address}</span><br><br></div></center>`
       }).join('')
     }//end of showApartment
 
@@ -60,22 +60,47 @@ document.addEventListener('DOMContentLoaded', () => {
         showDiv.innerHTML = necInfo
       }//end of else
       else if(event.target.id === 'bills-button'){
-        let billTags = billObjects.map((bill) => {
-          return `<div><span uk-icon="icon: check"></span><p>${bill.name}</p>
-          <p>${bill.amount}</p>
-          <img src=${bill.image}>
-          <div>`
-        }).join('')
-        showDiv.innerHTML = billTags
+        showDiv.innerHTML = `<table class="uk-table">
+          <center><caption></caption><center>
+          <thead>
+          <tr>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>${billObjects[0].name}</td>
+            <td>$${billObjects[0].amount}</td>
+
+        </tr>
+        <tr>
+          <td>${billObjects[1].name}</td>
+          <td>$${billObjects[1].amount}</td>
+        </tr>
+        <tr>
+          <td>${billObjects[2].name}</td>
+          <td>$${billObjects[2].amount}</td>
+        </tr>
+    </tbody>
+</table>`
       }
       else if(event.target.id === 'user-name'){
         let clickedUserId = parseInt(event.target.dataset.id)
         let selectedUser = userObjects.find((user) => { return user.id === clickedUserId})
-        showDiv.innerHTML = `<h1>${selectedUser.name}</h1>
+        showDiv.innerHTML = `<div uk-grid>
+        <div id='name-and-visitors'
+        <br><br><br><br>
+        <h1>${selectedUser.name}</h1><br>
         <label>Visitors:</label>
         <span>${selectedUser.associates}</span>
-        <br>
-        <img src=${selectedUser.image}>`
+        </div>
+
+        <div id='image-profile-pic'>
+        <br><br><br><br>
+        <img src=${selectedUser.image}>
+        </div>
+        </div>`
     }//end of elseif for username
     else if(event.target.id === 'chores-button') {
       let choresString = dataStore[0].chores
@@ -110,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let choreList = document.getElementById('chore-list')
           choreList.innerHTML += `<li>${newChore}</li>`
           let sendToServer = dataStore[0].chores + ', ' + newChore
-          // update the data store 
+          // update the data store
           dataStore[0].chores = sendToServer
 
           // Now POST to back end to persist new chore
@@ -149,3 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 }) // end DOMContentLoaded
+
+
+// `<div><span uk-icon="icon: check"></span><p>${bill.name}</p>
+// <p>${bill.amount}</p>
+// <img src=${bill.image}>
+// <div>`

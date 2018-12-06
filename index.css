@@ -1,12 +1,3 @@
-#apt-name {
-  padding-top: 100px;
+.header-style {
+  color: black;
 }
-
-#apartment-div {
-  padding-top: 200px;
-  z-index: 2;
-}
-/* 
-img {
-  display: cover;
-} */
