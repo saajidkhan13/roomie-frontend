@@ -105,13 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         })
       })
+    } else if (event.target.id === 'headsUp-button') {
+      // want to show a calendar
+
     }
 
   })//end of click event listener
 
 
-
-
+  // helpers
+  // function calendarHTML() {
+  //
+  // }
 
 
 
