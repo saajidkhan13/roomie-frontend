@@ -72,17 +72,27 @@ document.addEventListener('DOMContentLoaded', () => {
         let clickedUserId = parseInt(event.target.dataset.id)
         let selectedUser = userObjects.find((user) => { return user.id === clickedUserId})
         showDiv.innerHTML = `<h1>${selectedUser.name}</h1>
-        <p>${selectedUser.associates}</p>
+        <label>Visitors:</label>
+        <span>${selectedUser.associates}</span>
+        <br>
         <img src=${selectedUser.image}>`
     }//end of elseif for username
     else if(event.target.id === 'chores-button') {
-      let choreInfo = `<div id='all-chores'>
-      <p>${dataStore[0].chores}</p></div><br>`
-      showDiv.innerHTML = choreInfo
-    }
+      let choresString = dataStore[0].chores
+      let choresArray = choresString.split(',')
+      let choreTags = choresArray.map((chore) => {
+        return `<li>${chore}</li>`
+      }).join('')
+      showDiv.innerHTML = `<ul id='chore-list'>${choreTags}</ul>`
+    }//end of elseif for chores-button
       else if (event.target.id === 'new-chore-btn') {
         console.log('clicked');
-        debugger
+        let choresString = dataStore[0].chores
+        let choresArray = choresString.split(', ')
+        console.log(choresArray);
+        let choreTags = choresArray.map((chore) => {
+          return `<li>${chore}</li>`
+        }).join('')
         let form = `<div id='new-form-div'>
         <form id='new-chore-form'>New Chore:<br>
         <input type="text" name="chore" id="chore-input"><br>
@@ -90,20 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>
         </div>
         <div id='all-chores'>
-        <p>${dataStore[0].chores}</p></div><br>`
+        <ul id='chore-list'>${choreTags}</ul>
+        </div><br>`
         showDiv.innerHTML = form
         let newChoreForm = document.getElementById('new-chore-form')
         newChoreForm.addEventListener('submit', (e) => {
           e.preventDefault()
           let newChore = document.getElementById('chore-input').value // getting value of new chore
-          // optimistically render this to the chores list
-          // find the chores list on the dom
-          let choresList = document.getElementById('all-chores').querySelector('p')
-          choresList.innerText += `, ${newChore}`
-          e.target.reset()
-          let sendToServer = choresList.innerText
+          let choreList = document.getElementById('chore-list')
+          let sendToServer = dataStore[0].chores + ', ' + newChore
+            console.log(sendToServer);
+
           // Now POST to back end to persist new chore
-          fetch('http://localhost:3000/api/v1/apartments/31', {
+          fetch('http://localhost:3000/api/v1/apartments/10', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -113,6 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
               "chores": sendToServer
             })
           })
+          .then(r => r.json())
+          .then(data => {
+            console.log(data);
+
+          })
+          // optimistically render this to the chores list
+          // find the chores list on the dom
+          // let choresList = document.getElementById('all-chores').querySelector('ul')
+          // choresList.innerText += `, ${newChore}`
+          e.target.reset()
+          choreList.innerHTML += `<li>${newChore}</li>`
+          console.log(choreList.innerText);
+          // debugger
         })
     }//end of new chore form button
     else if (event.target.id === 'events-button') {
