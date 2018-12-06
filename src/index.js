@@ -77,11 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src=${selectedUser.image}>`
     }//end of elseif for username
     else if(event.target.id === 'chores-button') {
-      let choreInfo = `<div id='all-chores'<p>${dataStore[0].chores}</p></div><br>
-      <div id='new-form-div>'
-
-      <form id='new-chore-form'>
-        New Chore:<br>
+      let choreInfo = `<div id='all-chores'>
+      <p>${dataStore[0].chores}</p></div><br>
+      <div id='new-form-div'>
+      <form id='new-chore-form'>New Chore:<br>
         <input type="text" name="chore" id="chore-input"><br>
         <button id='new-chore' class='uk-button-primary'>Add Chore </button>
       </form>
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let newChore = document.getElementById('chore-input').value // getting value of new chore
         // optimistically render this to the chores list
         // find the chores list on the dom
-        let choresList = document.getElementById('chores-list')
+        let choresList = document.getElementById('all-chores').querySelector('p')
         choresList.innerText += `, ${newChore}`
         e.target.reset()
         let sendToServer = choresList.innerText
@@ -109,19 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
           })
         })
       })
-    } else if (event.target.id === 'headsUp-button') {
-      // want to show a calendar
-
+    } else if (event.target.id === 'events-button') {
+        // want to show a calendar
+        let eventsInfo = `<div id="events_div"><p>${dataStore[0].events}</p></div>`
+        showDiv.innerHTML = eventsInfo
     }
 
   })//end of click event listener
-
 
   // helpers
   // function calendarHTML() {
   //
   // }
-
 
 
 }) // end DOMContentLoaded
