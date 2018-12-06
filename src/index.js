@@ -93,10 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let choreTags = choresArray.map((chore) => {
           return `<li>${chore}</li>`
         }).join('')
-        let form = `<div id='new-form-div'>
+        let form = `<div id='new-form-div'><center>
         <form id='new-chore-form'>New Chore:<br>
-        <input type="text" name="chore" id="chore-input"><br>
-        <button id='new-chore' class='uk-button-primary'>Add Chore </button>
+        <input type="text" name="chore" id="chore-input">
+        <button id='new-chore' class='uk-button-primary'>Add Chore </button><center>
         </form>
         </div>
         <div id='all-chores'>
@@ -108,8 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
           e.preventDefault()
           let newChore = document.getElementById('chore-input').value // getting value of new chore
           let choreList = document.getElementById('chore-list')
+          choreList.innerHTML += `<li>${newChore}</li>`
           let sendToServer = dataStore[0].chores + ', ' + newChore
-            console.log(sendToServer);
+          // update the data store 
+          dataStore[0].chores = sendToServer
 
           // Now POST to back end to persist new chore
           fetch('http://localhost:3000/api/v1/apartments/10', {
@@ -122,19 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
               "chores": sendToServer
             })
           })
-          .then(r => r.json())
+          .then(response => response.json())
           .then(data => {
             console.log(data);
+            apartmentDiv.innerHTML = showApartment(dataStore)
 
           })
-          // optimistically render this to the chores list
-          // find the chores list on the dom
-          // let choresList = document.getElementById('all-chores').querySelector('ul')
-          // choresList.innerText += `, ${newChore}`
           e.target.reset()
-          choreList.innerHTML += `<li>${newChore}</li>`
           console.log(choreList.innerText);
-          // debugger
         })
     }//end of new chore form button
     else if (event.target.id === 'events-button') {
