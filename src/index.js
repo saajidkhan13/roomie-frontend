@@ -76,17 +76,34 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src=${selectedUser.image}>`
     }//end of elseif for username
     else if(event.target.id === 'chores-button') {
-      let choreInfo = `<p>${dataStore[0].chores}</p><br>
+      let choreInfo = `<p id="chores-list" >${dataStore[0].chores}</p><br>
       <form id='new-chore-form'>
         New Chore:<br>
-        <input type="text" name="chore"><br>
+        <input type="text" name="chore" id="chore-input"><br>
         <button id='new-chore' class='uk-button-primary'>Add Chore </button>
       </form>`
       showDiv.innerHTML = choreInfo
       let newChoreForm = document.getElementById('new-chore-form')
       newChoreForm.addEventListener('submit', (e) => {
         e.preventDefault()
-        console.log('lol');
+        let newChore = document.getElementById('chore-input').value // getting value of new chore
+        // optimistically render this to the chores list
+        // find the chores list on the dom
+        let choresList = document.getElementById('chores-list')
+        choresList.innerText += `, ${newChore}`
+        e.target.reset()
+        let sendToServer = choresList.innerText
+        // Now POST to back end to persist new chore
+        fetch('http://localhost:3000/api/v1/apartments/31', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({
+            "chores": sendToServer
+          })
+        })
       })
     }
 
