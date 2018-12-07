@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <div id='image-profile-pic'>
         <br><br><br><br>
-        <img src=${selectedUser.image}>
+        <img width="100" src=${selectedUser.image}>
         </div>
         </div>`
     }//end of elseif for username
@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (event.target.id === 'new-chore-btn') {
         let choresString = dataStore[0].chores
         let choresArray = choresString.split(', ')
-        console.log(choresArray);
         let choreTags = choresArray.map((chore) => {
           return `<li>${chore}</li>`
         }).join('')
@@ -141,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dataStore[0].chores = sendToServer
 
           // Now POST to back end to persist new chore
-          fetch('http://localhost:3000/api/v1/apartments/31', {
+          fetch('http://localhost:3000/api/v1/apartments/32', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -153,12 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             apartmentDiv.innerHTML = showApartment(dataStore)
 
           })
           e.target.reset()
-          console.log(choreList.innerText);
         })
     }//end of new chore form button
     else if (event.target.id === 'events-button') {
