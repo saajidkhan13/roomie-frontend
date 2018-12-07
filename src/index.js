@@ -31,9 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function showApartment(dataStore) {
       return dataStore.map((apt) => {
         return `<center><div data-id=${apt.id} id="apt-stuff">
-        <span id="apt-name">${apt.name}</span><br><br>
-        <br><label class="header-style">Address: </label>
-        <span class="header-style">${apt.address}</span><br><br></div></center>`
+        <br>
+        <h2 class="header-style" id="apt-name">${apt.name}</h2>
+
+        <h1 class="header-style">${apt.address}</h1><br><br></div></center>`
       }).join('')
     }//end of showApartment
 
@@ -180,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }//end of new chore form button
     else if (event.target.id === 'events-button') {
+      // billsEditForm.hidden = true
       let eventsString = dataStore[0].events
       let eventsArray = eventsString.split(', ')
       let eventsTags = eventsArray.map((event) => {

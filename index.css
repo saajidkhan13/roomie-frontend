@@ -1,17 +1,17 @@
 /* .header-style {
   color: black;
 } */
-#apartment-div {
-  font-family: 'Noto Sans', sans-serif;
-  color: black;
-	/* text-shadow:
+.header-style {
+  font-family: 'Lobster', cursive;
+  color: #686868;
+	text-shadow:
 		-1px -1px 0 #000,
 		1px -1px 0 #000,
 		-1px 1px 0 #000,
-		1px 1px 0 #000; */
+		1px 1px 0 #000;
 }
 
 #bg-img {
-  opacity: 0.8;
+  opacity: 1.5;
   z-index: -1;
 }
