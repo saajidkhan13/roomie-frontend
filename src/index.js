@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const roommates = document.getElementById('roommates-div')
   const billsEditForm = document.getElementById('bills-edit-form')
   billsEditForm.hidden = true
-
+  const formDiv = document.getElementById('form-div')
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
   let dataStore = []
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showDiv.innerHTML = necInfo
       }//end of else
       else if(event.target.id === 'bills-button'){
-        billsEditForm.hidden = false
+        // billsEditForm.hidden = false
         showDiv.innerHTML = `<table class="uk-table">
           <center><caption></caption><center>
           <thead>
@@ -88,8 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <td><button id=${billObjects[2].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
     </tbody>
-</table>
-  ${billsEditForm.innerHTML}`
+</table>`
 
       }
       else if(event.target.id === 'user-name'){
@@ -177,12 +176,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // click event on bill edit button
   showDiv.addEventListener('click', (e) => {
     if (e.target.innerText === 'EDIT') {
+      formDiv.innerHTML = billsEditForm.innerHTML
       let clickedBillID = e.target.id
       // pre fill edit form
       document.getElementById('bill-type').value = document.getElementById(`bill-${clickedBillID}`).innerText
       document.getElementById('bill-amount').value = document.getElementById(`amt-${clickedBillID}`).innerText
     }
   })
+
+  billsEditForm.addEventListener('submit', e => {
+    e.preventDefault()
+    console.log('trying to update');
+  })
+  // now submit event on edit bill form
 
 
 }) // end DOMContentLoaded
