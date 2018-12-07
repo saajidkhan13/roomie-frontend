@@ -50,8 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // showDiv.innerHTML = ""
       if(event.target.id === 'landlord-button') {
         let landlordInfo =
-        `<p>Our landlord is ${dataStore[0].landlord_name}</p>
-        <p> Phone Number: ${dataStore[0].landlord_contact}</p>`
+        `<p>Our landlord is: <h4>${dataStore[0].landlord_name}</h4></p>
+        <p> Phone Number: ${dataStore[0].landlord_contact}</p>
+        <span class= ".uk-text-primary">Great Building Management</span>`
         showDiv.innerHTML = landlordInfo
       }//if event for landlord button
       else if(event.target.id === 'necessities-button'){
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dataStore[0].chores = sendToServer
 
           // Now POST to back end to persist new chore
-          fetch('http://localhost:3000/api/v1/apartments/32', {
+          fetch('http://localhost:3000/api/v1/apartments/33', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -159,12 +160,44 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }//end of new chore form button
     else if (event.target.id === 'events-button') {
+      let eventsString = dataStore[0].events
+      let eventsArray = eventsString.split(', ')
+      let eventsTags = eventsArray.map((event) => {
+        return `<li>${event}</li>`
+      }).join('')
         // want to show a calendar
-        let eventsInfo = `<div id="events_div"><p>${dataStore[0].events}</p></div>`
-        showDiv.innerHTML = eventsInfo
-    }
+        showDiv.innerHTML = `<form id="new-event-form">
+        <input id="event-input" type="text" placeholder="event...">
+        <button id="new-event-button">Add A New Event</button>
+        </form>`
+        let eventInput = document.getElementById('event-input')
+        showDiv.innerHTML += `<ul id='event-list'>
+        <li>${eventsTags}</li>
+        </ul>`
+      let newEventForm = document.getElementById('new-event-form')
+      showDiv.addEventListener('click', (event) => {
+        event.preventDefault()
+        if(event.target.id === 'new-event-button') {
+          showDiv.innerHTML += `<ul><li>${event.target.parentElement.querySelector('input').value}</li></ul>`
+          let sendToServer = dataStore[0].events + ', ' + event.target.parentElement.querySelector('input').value
+          dataStore[0].events = sendToServer
+          fetch('http://localhost:3000/api/v1/apartments/33', {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify({
+              "events": sendToServer
+            })
+          })
+        }
+      })
+
+    }//end of else if for new event
 
   })//end of click event listener
+
 
   // click event on bill edit button
   showDiv.addEventListener('click', (e) => {
