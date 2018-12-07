@@ -73,19 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
     </thead>
     <tbody>
         <tr>
-            <td>${billObjects[0].name}</td>
-            <td>$${billObjects[0].amount}</td>
-            <td><button class="uk-button uk-button-default uk-button-small">Edit</button></td>
+            <td id="bill-${billObjects[0].id}">${billObjects[0].name}</td>
+            <td id="amt-${billObjects[0].id}">$${billObjects[0].amount}</td>
+            <td><button id=${billObjects[0].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
         <tr>
-          <td>${billObjects[1].name}</td>
-          <td>$${billObjects[1].amount}</td>
-            <td><button class="uk-button uk-button-default uk-button-small">Edit</button></td>
+          <td id="bill-${billObjects[1].id}">${billObjects[1].name}</td>
+          <td id="amt-${billObjects[1].id}">$${billObjects[1].amount}</td>
+            <td><button id=${billObjects[1].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
         <tr>
-          <td>${billObjects[2].name}</td>
-          <td>$${billObjects[2].amount}</td>
-          <td><button class="uk-button uk-button-default uk-button-small">Edit</button></td>
+          <td id="bill-${billObjects[2].id}">${billObjects[2].name}</td>
+          <td id="amt-${billObjects[2].id}">$${billObjects[2].amount}</td>
+          <td><button id=${billObjects[2].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
     </tbody>
 </table>
@@ -174,16 +174,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   })//end of click event listener
 
-  // helpers
-  // function calendarHTML() {
-  //
-  // }
+  // click event on bill edit button
+  showDiv.addEventListener('click', (e) => {
+    if (e.target.innerText === 'EDIT') {
+      let clickedBillID = e.target.id
+      // pre fill edit form
+      document.getElementById('bill-type').value = document.getElementById(`bill-${clickedBillID}`).innerText
+      document.getElementById('bill-amount').value = document.getElementById(`amt-${clickedBillID}`).innerText
+    }
+  })
 
 
 }) // end DOMContentLoaded
-
-
-// `<div><span uk-icon="icon: check"></span><p>${bill.name}</p>
-// <p>${bill.amount}</p>
-// <img src=${bill.image}>
-// <div>`
