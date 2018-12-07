@@ -13,6 +13,9 @@
         <link rel="stylesheet" href="index.css"/>
 
         <script src="src/index.js" type="text/javascript"></script>
+        <style>
+          @import url('https://fonts.googleapis.com/css?family=Noto+Sans:700');
+        </style>
 
         <!-- <script src="uikit/src/js/uikit-icons.min.js"></script> -->
     </head>
@@ -44,9 +47,9 @@
         </ul>
     </div>
     </nav>
-<div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=673&q=80" uk-img>
+<div id="bg-img" class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=673&q=80" uk-img>
 
-      <div id="apartment-div" class="">
+      <div class="uk-text-large" id="apartment-div">
         <!---name of apartment --->
       </div>
     </div>         <!--- backgroundimg div --->
@@ -58,6 +61,13 @@
       </div>
       <div id="show-div" class='uk-width-2-3'>
         <!--- show div --->
+        <form id="bills-edit-form" class="" action="index.html" method="post">
+          <label for="type">Type:</label>
+          <input type="text" placeholder="type of bill...">
+          <label for="amt">Amount:</label>
+          <input type="text" placeholder="amount owed">
+          <button type="button" name="button" class="uk-button uk-button-primary uk-button-small">Update</button>
+        </form>
       </div>
     </div><!--- end of grid --->
 

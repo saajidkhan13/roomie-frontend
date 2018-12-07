@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const showDiv = document.getElementById("show-div")
   const aptStuff = document.getElementById('apt-stuff')
   const roommates = document.getElementById('roommates-div')
+  const billsEditForm = document.getElementById('bills-edit-form')
+  billsEditForm.hidden = true
 
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showApartment(dataStore) {
       return dataStore.map((apt) => {
         return `<center><div data-id=${apt.id} id="apt-stuff">
-        <h3 class="header-style" id="apt-name">${apt.name}</h3>
+        <span id="apt-name">${apt.name}</span><br><br>
         <br><label class="header-style">Address: </label>
         <span class="header-style">${apt.address}</span><br><br></div></center>`
       }).join('')
@@ -60,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showDiv.innerHTML = necInfo
       }//end of else
       else if(event.target.id === 'bills-button'){
+        billsEditForm.hidden = false
         showDiv.innerHTML = `<table class="uk-table">
           <center><caption></caption><center>
           <thead>
@@ -72,18 +75,22 @@ document.addEventListener('DOMContentLoaded', () => {
         <tr>
             <td>${billObjects[0].name}</td>
             <td>$${billObjects[0].amount}</td>
-
+            <td><button class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
         <tr>
           <td>${billObjects[1].name}</td>
           <td>$${billObjects[1].amount}</td>
+            <td><button class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
         <tr>
           <td>${billObjects[2].name}</td>
           <td>$${billObjects[2].amount}</td>
+          <td><button class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
     </tbody>
-</table>`
+</table>
+  ${billsEditForm.innerHTML}`
+
       }
       else if(event.target.id === 'user-name'){
         let clickedUserId = parseInt(event.target.dataset.id)
@@ -139,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dataStore[0].chores = sendToServer
 
           // Now POST to back end to persist new chore
-          fetch('http://localhost:3000/api/v1/apartments/10', {
+          fetch('http://localhost:3000/api/v1/apartments/31', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
