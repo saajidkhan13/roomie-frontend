@@ -50,9 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // showDiv.innerHTML = ""
       if(event.target.id === 'landlord-button') {
         let landlordInfo =
-        `<p>Our landlord is: <h4>${dataStore[0].landlord_name}</h4></p>
+        `<br><br><div uk-grid>
+        <div class='uk-width-1-3'>
+        <p>Our landlord is: <h4>${dataStore[0].landlord_name}</h4></p>
         <p> Phone Number: ${dataStore[0].landlord_contact}</p>
-        <span class= ".uk-text-primary">Great Building Management</span>`
+        <span class= ".uk-text-primary">Great Building Management</span>
+        </div>
+        <div class="uk-width-1-3">
+        <img src='http://blog.namava.ir/wp-content/uploads/2017/11/Rowan-Atkinson.jpg'>
+        </div>
+        </div>`
         showDiv.innerHTML = landlordInfo
       }//if event for landlord button
       else if(event.target.id === 'necessities-button'){
@@ -86,7 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
           <td><button id=${billObjects[2].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
         </tr>
     </tbody>
-</table>`
+</table>
+<br>
+<h3>Bill Calculator</h3>
+<form id='bill-calc-form'><br>
+<label>$</label>
+<input type="text" name="amount" id="amount-input" placeholder="1200">
+<label>Number of Roommates</label>
+<input type="text" name="number-of-roommates" id="roommmate-input" placeholder="4">
+<button id='calculate' class='uk-button-primary'>Calculate Money Owed per Person </button><center>
+<br>
+<center><input type="text" name="answer" id="answer-input" placeholder="300">
+<label>Owed Per Person</label></center>
+</form>`
 
       }
       else if(event.target.id === 'user-name'){
@@ -120,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let choreTags = choresArray.map((chore) => {
           return `<li>${chore}</li>`
         }).join('')
-        let form = `<div id='new-form-div'><center>
+        let form = `<br><br><br><div id='new-form-div'><center>
         <form id='new-chore-form'>New Chore:<br>
         <input type="text" name="chore" id="chore-input">
         <button id='new-chore' class='uk-button-primary'>Add Chore </button><center>
@@ -154,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(response => response.json())
           .then(data => {
             apartmentDiv.innerHTML = showApartment(dataStore)
-
+            // showDiv.innerHTML = `${dataStore[0].chores}`
           })
           e.target.reset()
         })
@@ -181,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
           showDiv.innerHTML += `<ul><li>${event.target.parentElement.querySelector('input').value}</li></ul>`
           let sendToServer = dataStore[0].events + ', ' + event.target.parentElement.querySelector('input').value
           dataStore[0].events = sendToServer
-          fetch('http://localhost:3000/api/v1/apartments/33', {
+          fetch('http://localhost:3000/api/v1/apartments/34', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -239,7 +258,16 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  // now submit event on edit bill form
+  showDiv.addEventListener('click', (event) => {
+    if(event.target.id === 'calculate'){
+      event.preventDefault()
+      console.log('yerr');
+      let roommateAmount = parseInt(event.target.parentElement.querySelector('#roommmate-input').value)
+      let billAmount = parseInt(event.target.parentElement.querySelector('#amount-input').value)
+      console.log(roommateAmount, billAmount);
+      let amountOwed = event.target.parentElement.querySelector('#answer-input')
+      amountOwed.value = billAmount / roommateAmount
 
-
+    }
+  })
 }) // end DOMContentLoaded
