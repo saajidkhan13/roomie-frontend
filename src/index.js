@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let users= [];
 
 
+
   // Fetches and Event Listeners
   fetch(endPoint)
     .then(res => res.json())
@@ -240,6 +241,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // formDiv.dataset.id is the id of the bill we're patching to
       let newType = document.getElementById('bill-type').value
       let newAmt = document.getElementById('bill-amount').value
+      let foundBill = dataStore[0].bills.find((bill) => {
+        return bill.id == formDiv.dataset.id
+      })
+      foundBill.name = newType
+      foundBill.amount = newAmt
       fetch(`http://localhost:3000/api/v1/bills/${formDiv.dataset.id}`, {
         method: 'PATCH',
         headers: {
