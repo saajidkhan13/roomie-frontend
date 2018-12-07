@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const showDiv = document.getElementById("show-div")
   const aptStuff = document.getElementById('apt-stuff')
   const roommates = document.getElementById('roommates-div')
-  const billsEditForm = document.getElementById('bills-edit-form')
-  billsEditForm.hidden = true
-  const formDiv = document.getElementById('form-div')
+  const formDiv = document.getElementById("form-div")
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
   let dataStore = []
@@ -46,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.addEventListener('click', (event) => {
-      // debugger
+
       let billObjects = dataStore[0].bills
       let userObjects = dataStore[0].users
       // showDiv.innerHTML = ""
@@ -62,13 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
         showDiv.innerHTML = necInfo
       }//end of else
       else if(event.target.id === 'bills-button'){
-        // billsEditForm.hidden = false
         showDiv.innerHTML = `<table class="uk-table">
           <center><caption></caption><center>
           <thead>
           <tr>
             <th>Type</th>
-            <th>Amount</th>
+            <th>Amount ($)</th>
         </tr>
     </thead>
     <tbody>
@@ -117,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
       showDiv.innerHTML = `<ul id='chore-list'>${choreTags}</ul>`
     }//end of elseif for chores-button
       else if (event.target.id === 'new-chore-btn') {
-        console.log('clicked');
         let choresString = dataStore[0].chores
         let choresArray = choresString.split(', ')
         console.log(choresArray);
@@ -176,18 +172,43 @@ document.addEventListener('DOMContentLoaded', () => {
   // click event on bill edit button
   showDiv.addEventListener('click', (e) => {
     if (e.target.innerText === 'EDIT') {
-      formDiv.innerHTML = billsEditForm.innerHTML
+      formDiv.innerHTML = `<form id="bills-edit-form" method="post">
+        <label for="">Type:</label>
+        <input id="bill-type" type="text" name="" placeholder="type of bill...">
+        <label for="">Amount:</label>
+        <input id="bill-amount" name="" placeholder="amount...">
+        <button>Update Bill</button>
+      </form>`
       let clickedBillID = e.target.id
+      formDiv.dataset.id = e.target.id
       // pre fill edit form
       document.getElementById('bill-type').value = document.getElementById(`bill-${clickedBillID}`).innerText
       document.getElementById('bill-amount').value = document.getElementById(`amt-${clickedBillID}`).innerText
     }
+    const billsEditForm = document.getElementById("bills-edit-form")
+    billsEditForm.addEventListener('submit', e => {
+      e.preventDefault()
+      // formDiv.dataset.id is the id of the bill we're patching to
+      let newType = document.getElementById('bill-type').value
+      let newAmt = document.getElementById('bill-amount').value
+      fetch(`http://localhost:3000/api/v1/bills/${formDiv.dataset.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json', Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          "name": newType,
+          "amount": newAmt
+        })
+      })
+      .then(r => r.json())
+      .then(updatedBillObject => {
+        document.getElementById(`bill-${formDiv.dataset.id}`).innerText = updatedBillObject.name
+        document.getElementById(`amt-${formDiv.dataset.id}`).innerText = updatedBillObject.amount
+      })
+    })
   })
 
-  billsEditForm.addEventListener('submit', e => {
-    e.preventDefault()
-    console.log('trying to update');
-  })
   // now submit event on edit bill form
 
 
