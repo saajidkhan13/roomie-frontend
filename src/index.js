@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>`
         let eventInput = document.getElementById('event-input')
         showDiv.innerHTML += `<ul id='event-list'>
-        <li>${eventsTags}</li>
+        ${eventsTags}
         </ul>`
       let newEventForm = document.getElementById('new-event-form')
       showDiv.addEventListener('click', (event) => {
