@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('')
         let form = `<br><br><br><div id='new-form-div'><center>
         <form id='new-chore-form'>New Chore:<br>
-        <input type="text" name="chore" id="chore-input">
+        <input autocomplete="off" type="text" name="chore" id="chore-input">
         <button id='new-chore' class='uk-button-primary'>Add Chore </button><center>
         </form>
         </div>
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('')
         // want to show a calendar
         showDiv.innerHTML = `<form id="new-event-form">
-        <input id="event-input" type="text" placeholder="event...">
+        <input autocomplete="off" id="event-input" type="text" placeholder="event...">
         <button id="new-event-button">Add A New Event</button>
         </form>`
         let eventInput = document.getElementById('event-input')
