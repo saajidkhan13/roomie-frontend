@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const aptStuff = document.getElementById('apt-stuff')
   const roommates = document.getElementById('roommates-div')
   const formDiv = document.getElementById("form-div")
+  const apartmentNav = document.getElementById("apartment-nav")
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
-  let dataStore = []
+  let dataStore = [];
+  let apartmentInfo = []
   let users= [];
 
 
@@ -18,25 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(json => {
       // console.log(json);
       dataStore = json
-      // console.log(dataStore);
-      apartmentDiv.innerHTML = showApartment(dataStore)
+      console.log(dataStore);
+      // apartmentDiv.innerHTML = showApartment(dataStore)
       // roommates.innerHTML = x.join('')
       users = dataStore[0].users
+      apartmentInfo = dataStore[0].address
+      console.log(apartmentInfo);
       roommates.innerHTML += showRoommates(users).join(' ')
-
     });
 
 
     // HELPERS
-    function showApartment(dataStore) {
-      return dataStore.map((apt) => {
-        return `<center><div data-id=${apt.id} id="apt-stuff">
-        <br>
-        <h2 class="header-style" id="apt-name">${apt.name}</h2>
 
-        <h1 class="header-style">${apt.address}</h1><br><br></div></center>`
-      }).join('')
-    }//end of showApartment
+    function showApartmentInfo(value){
+      return dataStore
+    }
 
     function showRoommates(users) {
       return users.map((user) => {
@@ -59,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class= ".uk-text-primary">Great Building Management</span>
         </div>
         <div class="uk-width-1-3">
-        <img src='http://blog.namava.ir/wp-content/uploads/2017/11/Rowan-Atkinson.jpg'>
         </div>
         </div>`
         showDiv.innerHTML = landlordInfo
@@ -174,8 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
           })
           .then(response => response.json())
           .then(data => {
-            apartmentDiv.innerHTML = showApartment(dataStore)
-            // showDiv.innerHTML = `${dataStore[0].chores}`
+            choresString.push(data)
           })
           e.target.reset()
         })
