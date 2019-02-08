@@ -1,16 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+
   // DOM Elements
   const apartmentDiv = document.getElementById("apartment-div")
-  const showDiv = document.getElementById("show-div")
   const aptStuff = document.getElementById('apt-stuff')
   const roommates = document.getElementById('roommates-div')
   const formDiv = document.getElementById("form-div")
   const apartmentNav = document.getElementById("apartment-nav")
+  const appDOM = document.getElementById('app-dom')
+  const background = document.getElementById('background-wallpaper')
+
   // Variables
   const endPoint = 'http://localhost:3000/api/v1/apartments'
   let dataStore = [];
   let apartmentInfo = []
   let users= [];
+
+
 
 
 
@@ -24,72 +29,173 @@ document.addEventListener('DOMContentLoaded', () => {
       // apartmentDiv.innerHTML = showApartment(dataStore)
       // roommates.innerHTML = x.join('')
       users = dataStore[0].users
-      apartmentInfo = dataStore[0].address
+      apartmentInfo = dataStore[0]
       console.log(apartmentInfo);
-      roommates.innerHTML += showRoommates(users).join(' ')
+      appDOM.innerHTML = showLanding()
+      background.innerHTML += showVideo()
     });
 
 
     // HELPERS
 
+    function showNavBar(){
+      return `<ul class="navbar">
+        <li id="dropdown">
+          <a id="new-chore-btn" href="#">Chores</a>
+        </li>
+        <div id="apartment-nav">
+        <li><a id="bills-button" href="#">Bills</a></li>
+        <li><a id="events-button" href="#">Events</a></li>
+        <li><a id="landlord-button" href="#">Landlord Info</a></li>
+        </div>
+        <div id="room8-logo">
+          <li style="float:right">
+            <a class="active" href="#">
+              room8
+            </a>
+          </li>
+          </div>
+      </ul>`
+    }
+
+    function showLanding(){
+      return `<div id="landing-div">
+              <p>Welcome to room8</p>
+              <form>
+              <input type="login" placeholder="Username"/>
+              <br/>
+              <input type="login" placeholder="Password"/>
+              <br/><br/>
+              <button class="button" id="login-button"><span>Login </span></button>
+              </form>
+              </div>`
+    }
+
+    function showPostLanding(){
+      return `<div class="post-landing">
+              <h1>hello</h1>
+              </div>`
+    }
+
+    function showAppDOM(){
+      return `<div id="navigation-bar">
+              </div>
+
+              <div class="app-grid">
+
+              <div id="show-div">
+
+              </div>
+
+              <div id="form-div" >
+              </div>
+
+             </div>`
+    }
+
     function showApartmentInfo(value){
-      return dataStore
+      return `<li>
+                <div style="float:right">
+                  <a id="apartment-address">
+                    ${value}
+                  </a>
+                </div>
+              </li>`
     }
 
     function showRoommates(users) {
       return users.map((user) => {
-        return `<p uk-margin><button class="uk-button uk-button-danger" data-id=${user.id} id='user-name'>${user.name}</button></p><br>`
+        return `<p uk-margin>
+                  <center>
+                  <button
+                  class="user-button"
+                  data-id=${user.id}
+                  id='name-button'>
+                  ${user.name}
+                  </button>
+                  </center>
+                  </p>
+                  <br>`
       })
     }
+
+    function showVideo(){
+      return `<video autoplay loop id="video-background" muted plays-inline>
+        <source src="http://video2.ignitemotion.com/files/mp4/RetroMove.mp4" type="video/mp4">
+      </video>`
+    }
+
 
 
     document.addEventListener('click', (event) => {
 
       let billObjects = dataStore[0].bills
       let userObjects = dataStore[0].users
-      // showDiv.innerHTML = ""
-      if(event.target.id === 'landlord-button') {
+
+      // Landing Page Submit
+      if(event.target.id == 'login-button'){
+        event.preventDefault();
+        console.log('lalalala');
+        users = dataStore[0].users
+        apartmentInfo = dataStore[0]
+        appDOM.innerHTML = showAppDOM()
+        let showDiv = document.getElementById('show-div')
+        const navigationBar = document.getElementById('navigation-bar')
+        const navList = document.getElementById('apartment-nav')
+
+        
+        showDiv.innerHTML = showPostLanding()
+        navigationBar.innerHTML = showNavBar()
+        navList.innerHTML += showApartmentInfo(apartmentInfo.address)
+      }
+
+      //Nav-Landlord
+      else if(event.target.id === 'landlord-button') {
+        console.log('yerr');
+        let showDiv = document.getElementById('show-div')
         let landlordInfo =
-        `<br><br><div uk-grid>
-        <div class='uk-width-1-3'>
+        `<br><br>
+        <div>
+        <div class=''>
         <p>Our landlord is: <h4>${dataStore[0].landlord_name}</h4></p>
         <p> Phone Number: ${dataStore[0].landlord_contact}</p>
         <span class= ".uk-text-primary">Great Building Management</span>
         </div>
-        <div class="uk-width-1-3">
-        </div>
         </div>`
         showDiv.innerHTML = landlordInfo
-      }//if event for landlord button
+      }
+
+      //Nav-Necessities
       else if(event.target.id === 'necessities-button'){
         let necInfo =
         `<p>We need to buy ${dataStore[0].necessities}</p>`
         showDiv.innerHTML = necInfo
       }//end of else
+
+
       else if(event.target.id === 'bills-button'){
-        showDiv.innerHTML = `<table class="uk-table">
-          <center><caption></caption><center>
-          <thead>
+        let showDiv = document.getElementById('show-div')
+        showDiv.innerHTML = `<table class="bills-table">
+          <table style="width:100%">
           <tr>
             <th>Type</th>
             <th>Amount ($)</th>
         </tr>
-    </thead>
-    <tbody>
+        <tbody>
         <tr>
             <td id="bill-${billObjects[0].id}">${billObjects[0].name}</td>
             <td id="amt-${billObjects[0].id}">$${billObjects[0].amount}</td>
-            <td><button id=${billObjects[0].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
+            <td><button id=${billObjects[0].id} class="bill-button">Edit</button></td>
         </tr>
         <tr>
           <td id="bill-${billObjects[1].id}">${billObjects[1].name}</td>
           <td id="amt-${billObjects[1].id}">$${billObjects[1].amount}</td>
-            <td><button id=${billObjects[1].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
+            <td><button id=${billObjects[1].id} class="bill-button">Edit</button></td>
         </tr>
         <tr>
           <td id="bill-${billObjects[2].id}">${billObjects[2].name}</td>
           <td id="amt-${billObjects[2].id}">$${billObjects[2].amount}</td>
-          <td><button id=${billObjects[2].id} class="uk-button uk-button-default uk-button-small">Edit</button></td>
+          <td><button id=${billObjects[2].id} class="bill-button">Edit</button></td>
         </tr>
     </tbody>
 </table>
@@ -107,25 +213,26 @@ document.addEventListener('DOMContentLoaded', () => {
 </form>`
 
       }
-      else if(event.target.id === 'user-name'){
+      else if(event.target.id === 'name-button'){
+        let showDiv = document.getElementById('show-div')
         let clickedUserId = parseInt(event.target.dataset.id)
         let selectedUser = userObjects.find((user) => { return user.id === clickedUserId})
-        showDiv.innerHTML = `<div uk-grid>
-        <div id='name-and-visitors'
-        <br><br><br><br>
+        showDiv.innerHTML = `<div class="user-grid" align="center">
+        <div id='image-profile-pic'>
+        <div id=''>
+        <img width="300" src=${selectedUser.image}>
+        </div>
+
         <h1>${selectedUser.name}</h1><br>
         <label>Visitors:</label>
         <span>${selectedUser.associates}</span>
         </div>
 
-        <div id='image-profile-pic'>
-        <br><br><br><br>
-        <img width="100" src=${selectedUser.image}>
-        </div>
         </div>`
     }//end of elseif for username
     else if(event.target.id === 'chores-button') {
       let choresString = dataStore[0].chores
+      let showDiv = document.getElementById('show-div')
       let choresArray = choresString.split(',')
       let choreTags = choresArray.map((chore) => {
         return `<li>${chore}</li>`
@@ -133,10 +240,11 @@ document.addEventListener('DOMContentLoaded', () => {
       showDiv.innerHTML = `<ul id='chore-list'>${choreTags}</ul>`
     }//end of elseif for chores-button
       else if (event.target.id === 'new-chore-btn') {
+        let showDiv = document.getElementById('show-div')
         let choresString = dataStore[0].chores
         let choresArray = choresString.split(', ')
         let choreTags = choresArray.map((chore) => {
-          return `<li>${chore}</li>`
+          return `<li>${chore}</li><br/>`
         }).join('')
         let form = `<br><br><br><div id='new-form-div'><center>
         <form id='new-chore-form'>New Chore:<br>
@@ -145,7 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </form>
         </div>
         <div id='all-chores'>
-        <ul id='chore-list'>${choreTags}</ul>
+        <ul id='chore-list'>
+          <li>${choreTags}</li>
+        </ul>
         </div><br>`
         showDiv.innerHTML = form
         let newChoreForm = document.getElementById('new-chore-form')
@@ -159,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dataStore[0].chores = sendToServer
 
           // Now POST to back end to persist new chore
-          fetch('http://localhost:3000/api/v1/apartments/33', {
+          fetch('http://localhost:3000/api/v1/apartments/1', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -169,19 +279,19 @@ document.addEventListener('DOMContentLoaded', () => {
               "chores": sendToServer
             })
           })
-          .then(response => response.json())
-          .then(data => {
-            choresString.push(data)
-          })
           e.target.reset()
         })
+
     }//end of new chore form button
     else if (event.target.id === 'events-button') {
       // billsEditForm.hidden = true
+      let showDiv = document.getElementById('show-div')
       let eventsString = dataStore[0].events
       let eventsArray = eventsString.split(', ')
       let eventsTags = eventsArray.map((event) => {
-        return `<li>${event}</li>`
+        return `<ul id="event-list">
+                <li>${event}</li>
+                </ul>`
       }).join('')
         // want to show a calendar
         showDiv.innerHTML = `<form id="new-event-form">
@@ -199,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
           showDiv.innerHTML += `<ul><li>${event.target.parentElement.querySelector('input').value}</li></ul>`
           let sendToServer = dataStore[0].events + ', ' + event.target.parentElement.querySelector('input').value
           dataStore[0].events = sendToServer
-          fetch('http://localhost:3000/api/v1/apartments/34', {
+          fetch('http://localhost:3000/api/v1/apartments/1', {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -274,4 +384,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
   })
+
+
+
+
 }) // end DOMContentLoaded

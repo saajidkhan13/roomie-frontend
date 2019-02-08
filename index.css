@@ -1,36 +1,44 @@
 
-.grad1 {
-  height: 800px;
-  background-color: red; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to right, red , yellow); /* Standard syntax (must be last) */
-}
 
-ul {
+.navbar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: white;
+  font-family: Verdana;
 }
 
-li {
+.navbar li {
   float: left;
 }
 
-li a, .dropbtn {
+.navbar li a, .dropbtn {
   display: inline-block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
+.navbar li a:hover, .dropdown:hover .dropbtn {
+  background-color: #CCFFFF;
 }
 
-li.dropdown {
+.navbar li a:active {
+  background-color: red
+}
+
+.navbar li.dropdown {
   display: inline-block;
+}
+
+.navbar li {
+  border-right: 1px solid #bbb;
+}
+
+.navbar li:last-child {
+  border-right: none;
 }
 
 .dropdown-content {
@@ -56,9 +64,173 @@ li.dropdown {
   display: block;
 }
 
-.roommate-bar {
+
+
+
+.roommate-grid {
+  grid-column: 1 / 3;
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+  align-content: center
+}
+
+.roommate-card {
+  font-family: Verdana;
   background-color: white;
+  border-radius: 10px;
   width: 300px;
   padding: 25px;
   margin: 25px;
+  align-content: center;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+#apartment-address {
+  display: inline-block;
+  color: black;
+  margin-left: 120px;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#show-div {
+  grid-column: 4 / 6;
+  background-color: white;
+  border-radius: 10px;
+  width: 800px;
+  height: 600px;
+  max-width: 1000px;
+  padding: 25px;
+  margin: 25px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  font-family: Verdana
+}
+
+#image-profile-pic {
+  align-content: center
+}
+
+#name-button  {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+}
+
+#name-button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#chore-list {
+  display: inline-block;
+  color: black;
+  margin-left: 120px;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#event-list {
+  display: inline-block;
+  color: black;
+  margin-left: 120px;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+div.app-grid {
+  display: grid;
+  animation-duration: 1s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+#video-background {
+/*  making the video fullscreen  */
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
+#landing-div {
+
+  color: white;
+  font-family: "Gill Sans", sans-serif;
+  font-size: 48px;
+  word-wrap: break-word;
+  text-align: center;
+  padding: 10px;
+  margin-top: 100px
+}
+
+input[type="login"] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid red;
+  border-radius: 4px;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: white
+  border-color: #f736e4;
+  border: 10px;
+  color: black;
+  text-align: center;
+  font-size: 18px;
+  font-family: "Gill Sans", sans-serif;
+  padding: 20px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }

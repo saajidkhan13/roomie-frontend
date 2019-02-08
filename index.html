@@ -1,62 +1,24 @@
 <html>
     <head>
-        <title>Title</title>
+        <title>Room8</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/css/uikit.min.css" />
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js"></script>
-
-        <!-- <link rel="stylesheet" href="uikit/css/uikit.min.css" /> -->
-        <!-- <script src="uikit/srcjs/uikit.min.js"></script> -->
         <link rel="stylesheet" href="index.css"/>
         <script src="src/index.js" type="text/javascript"></script>
         <style>
-          @import url('https://fonts.googleapis.com/css?family=Lobster');
-          @import url('https://fonts.googleapis.com/css?family=Noto+Sans:700');
+          body {
+                font-family: Verdana;
+               }
         </style>
     </head>
     <body>
-
-        <!--- Navigation Bar --->
-        <ul>
-          <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Chores</a>
-            <div class="dropdown-content">
-              <a id="chores-button" href="#">See Chores</a>
-              <a id="new-chore-btn" href="#">Add a New Chore</a>
-            </div>
-          </li>
-          <li><a id="bills-button" href="#">Bills</a></li>
-          <li><a id="events-button" href="#">Events</a></li>
-          <li><a id="landlord-button" href="#">Landlord Info</a></li>
-          <li><div id="apartment-nav"></div></li>
-        </ul>
+      <div id="background-wallpaper">
+      </div>
 
 
-      <div class="uk-text-lead" id="apartment-div">
-        <!---name of apartment --->
+      <div id="app-dom">
+
       </div>
-    <!--- backgroundimg div --->
-    <div class="grad1">
-    <div uk-grid>
-      <div class="uk-grid-match uk-child-width-expand@s uk-text-center">
-        <br>
-          <div class="roommate-bar">
-            <h4 id="roommates-div">All Roommates:</h4>
-            <!---name of roommates --->
-          </div>
-    </div>
-    <div id="grad1"></div>
-      <div id="show-div" class='uk-width-2-3'>
-        <!--- show div --->
-      </div>
-      <div id="form-div" >
-      </div>
-    <br><br><br>
-   </div>
- </div>
-   <!--- end of grid --->
+
     </body>
 </html>
